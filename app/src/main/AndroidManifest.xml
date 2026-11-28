@@ -45,6 +45,21 @@
             android:name=".TripService"
             android:exported="false"
             android:foregroundServiceType="location|connectedDevice" />
+        <!-- Android Auto (phone): live fuel/trip screen -->
+        <meta-data
+            android:name="com.google.android.gms.car.application"
+            android:resource="@xml/automotive_app_desc" />
+        <meta-data
+            android:name="androidx.car.app.minCarApiLevel"
+            android:value="1" />
+        <service
+            android:name=".auto.ObdCarAppService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="androidx.car.app.CarAppService" />
+                <category android:name="androidx.car.app.category.IOT" />
+            </intent-filter>
+        </service>
         <!-- Sharing scan reports -->
         <provider
             android:name="androidx.core.content.FileProvider"

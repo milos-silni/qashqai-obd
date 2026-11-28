@@ -53,8 +53,28 @@ The load × RPM estimate works anywhere. Reading the ECU's own injected fuel qua
 
 Reports are saved as text in `Android/data/com.qashqai.obd/files/scans/`. Use **View** to read one on the screen, or **Share** to send it (or copy it over USB). The next step is to read the reports and add the injected-quantity request to the app.
 
+## Android Auto (app on a phone)
+
+Installed on a phone, the app also shows up in Android Auto. Android Auto only allows Google's fixed screen layouts, so the car screen is one simple page:
+
+- **Fuel now:** L/100km (or L/h when standing), with L/h and speed.
+- **Trip:** average L/100km, distance, fuel used and engine time.
+- **Engine:** rpm, coolant, boost and battery.
+- **Car:** connection status and whether the trip map is recording.
+- Buttons: **Connect/Disconnect** and **Record trip/Stop recording**.
+
+Opening the app in the car connects to the adapter on its own, if auto-connect is on. Pick the adapter and grant permissions once in the phone app first. The trip map, Diag tools and settings are only on the phone (or head unit) screen.
+
+The app isn't from the Play Store, so Android Auto hides it until you allow unknown sources:
+
+1. Open Android Auto settings on the phone.
+2. Tap **Version** about 10 times to unlock developer settings.
+3. In the ⋮ menu, open **Developer settings** and turn on **Unknown sources**.
+4. Reconnect the phone to the car.
+
 ## Code layout
 
+- `auto/` – Android Auto entry point and car screen (Car App Library templates)
 - `scan/` – ECU scan, CAN capture and report files; `obd/ScanParser.kt` – ISO-TP reassembly and bus statistics (unit-tested against a scripted fake ELM327)
 - `obd/` – Bluetooth transport, ELM327 protocol, reply parser, PIDs, fuel model
 - `data/ObdManager.kt` – connection, auto-reconnect, polling loop, trip integration, settings
